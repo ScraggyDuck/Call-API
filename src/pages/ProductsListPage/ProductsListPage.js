@@ -4,9 +4,26 @@ import ProductItem from '../../components/ProductItem/ProductItem';
 
 import { connect } from 'react-redux';
 
+import callAPI from '../../utils/APICaller';
+
 class ProductsListPage extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            products: []
+        };
+    }
+
+    componentDidMount(){
+        callAPI('GET', 'products', null).then(res => {
+            this.setState({
+                products: res.data
+            });
+        });
+    }
+
     render() {
-        var { products } = this.props;
+        var { products } = this.state;
         return (
             <div className="col-md-12">
                 <button className="btn btn-primary mb-5 mt-5">Thêm sản phẩm</button>
