@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 class ProductItem extends Component {
     render() {
-        var { product } = this.props;
+        var { product, index } = this.props;
         var statusName = product.status ? "Còn hàng" : "Hết hàng";
         var statusClass = product.status ? "success" : "danger";
         return (
             <tr>
-                <td>{ product.index }</td>
-                <td>{ product.index }</td>
+                <td>{ product.id}</td>
+                <td>HH{ index + 1}</td>
                 <td>{product.name} </td>
                 <td>{ product.price }</td>
                 <td>
