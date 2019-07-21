@@ -9,14 +9,14 @@ import { connect } from 'react-redux';
 import callAPI from '../../utils/APICaller';
 
 class ProductsListPage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             products: []
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         callAPI('GET', 'products', null).then(res => {
             this.setState({
                 products: res.data
@@ -24,6 +24,32 @@ class ProductsListPage extends Component {
         });
     }
 
+    onDelete = id => {
+        var { products } = this.state;
+        callAPI('DELETE', `products/${id}`, null).then(res => {
+            if (res.status === 200) {
+                var index = this.findIndex(id);
+                products.splice(index, 1);
+                this.setState({
+                    products
+                });
+            }
+        });
+    }
+
+    findIndex = id => {
+        var { products } = this.state;
+        var index = -1;
+        if (products.length > 0) {
+            for (var i = 0; i < products.length; i++) {
+                if (products[i].id === id) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
     render() {
         var { products } = this.state;
         return (
@@ -38,12 +64,13 @@ class ProductsListPage extends Component {
 
     showProductItem = products => {
         var result = null;
-        if(products.length > 0){
+        if (products.length > 0) {
             result = products.map((product, index) => (
-                <ProductItem 
+                <ProductItem
                     key={index}
                     index={index}
                     product={product}
+                    onDelete={this.onDelete}
                 />
             ))
         }
