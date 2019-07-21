@@ -23,7 +23,12 @@ function App() {
       </nav>
       <div className="container">
         <button className="btn btn-primary mb-5 mt-5">Thêm sản phẩm</button>
-        <table className=" text-center table table-hover table-bordered">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            Thông tin sản phẩm
+          </div>
+          <div class="card-body">
+          <table className=" text-center table table-hover table-bordered">
           <thead className="thead-inverse">
             <tr>
               <th>STT</th>
@@ -50,6 +55,8 @@ function App() {
             </tr>
           </tbody>
         </table>
+          </div>
+        </div>
       </div>
     </div>
   );
