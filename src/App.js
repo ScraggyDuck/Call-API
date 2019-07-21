@@ -15,10 +15,6 @@ class App extends Component {
           <Menu />
           <div className="container">
             <div className="row">
-              {/* <div class="col-md-12">
-              <button className="btn btn-primary mb-5 mt-5">Thêm sản phẩm</button>
-              <ProductsList />
-            </div> */}
               {this.showRoutes(routes)}
             </div>
           </div>

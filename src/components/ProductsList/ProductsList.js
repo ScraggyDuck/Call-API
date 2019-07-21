@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import ProductItem from '../ProductItem/ProductItem';
 
 class ProductsList extends Component {
     render() {
         return (
-            <div class="card">
-                <div class="card-header bg-primary text-white">
+            <div className="card">
+                <div className="card-header bg-primary text-white">
                     Thông tin sản phẩm
             </div>
-                <div class="card-body">
+                <div className="card-body">
                     <table className=" text-center table table-hover table-bordered">
                         <thead className="thead-inverse">
                             <tr>
@@ -21,9 +20,7 @@ class ProductsList extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                           <ProductItem />
-                           <ProductItem />
-                           <ProductItem />
+                           {this.props.children}
                         </tbody>
                     </table>
                 </div>
