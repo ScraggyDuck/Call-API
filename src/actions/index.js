@@ -12,3 +12,18 @@ export const actFetchAllProducts = (products) => ({
     type: Types.FETCH_PRODUCTS,
     products
 });
+
+export const actDeleteProductRequest = id => {
+    return dispatch => {
+        return callAPI('DELETE', `products/${id}`, null).then(res => {
+            if(res.status === 200){
+                dispatch(actDeleteProduct(id))
+            }
+        });
+    }   
+};
+
+export const actDeleteProduct = id => ({
+    type: Types.DELETE_PRODUCT,
+    id
+});
