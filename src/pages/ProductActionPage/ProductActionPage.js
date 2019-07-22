@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import callAPI from '../../utils/APICaller';
 
 import { connect } from 'react-redux';
-import { actAddProductRequest } from '../../actions/index';
+import { actAddProductRequest, actUpdateProductRequest } from '../../actions/index';
 
 class ProductActionPage extends Component {
     constructor(props) {
@@ -54,13 +54,8 @@ class ProductActionPage extends Component {
             status: productStatus
         };
         if (id !== '') {
-            callAPI('PUT', `products/${id}`, {
-                name: productName,
-                price: productPrice,
-                status: productStatus
-            }).then(res => {
-                history.push('/products-list');
-            });
+            this.props.onUpdateProduct(product);
+            history.push('/products-list');
         }
         else {
             this.props.onAddProduct(product);
@@ -118,6 +113,7 @@ class ProductActionPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    onAddProduct: product => dispatch(actAddProductRequest(product))
+    onAddProduct: product => dispatch(actAddProductRequest(product)),
+    onUpdateProduct: product => dispatch(actUpdateProductRequest(product))
 })
 export default connect(null, mapDispatchToProps)(ProductActionPage);

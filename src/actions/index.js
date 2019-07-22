@@ -43,7 +43,7 @@ export const actAddProduct = product => ({
 
 export const actUpdateProductRequest = product => {
     return dispatch => {
-        return callAPI('POST', `products`, product).then(res => {
+        return callAPI('PUT', `products/${product.id}`, product).then(res => {
            dispatch(actUpdateProduct(res.data))
         })
     };

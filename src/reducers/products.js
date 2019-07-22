@@ -14,7 +14,7 @@ const products = (state = initialState, action) => {
             return newProductsAdd;
         case Types.UPDATE_PRODUCT:
             var newProductsUpdate = [...state];
-            index = findIndex(state, action.id);
+            index = findIndex(state, action.product.id);
             newProductsUpdate[index] = {...action.product}
             return newProductsUpdate;
         case Types.DELETE_PRODUCT:
