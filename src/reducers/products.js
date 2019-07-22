@@ -8,11 +8,20 @@ const products = (state = initialState, action) => {
         case Types.FETCH_PRODUCTS:
             var products = action.products;
             return products;
+        case Types.ADD_PRODUCTS:
+            var newProductsAdd = [...state];
+            newProductsAdd.push(action.product);
+            return newProductsAdd;
+        case Types.UPDATE_PRODUCT:
+            var newProductsUpdate = [...state];
+            index = findIndex(state, action.id);
+            newProductsUpdate[index] = {...action.product}
+            return newProductsUpdate;
         case Types.DELETE_PRODUCT:
-            var newProducts = [...state];
-            index = findIndex(newProducts, action.id);
-            newProducts.splice(index, 1);
-            return newProducts;
+            var newProductsDelete = [...state];
+            index = findIndex(state, action.id);
+            newProductsDelete.splice(index, 1);
+            return newProductsDelete;
         default:
             return state;
     }

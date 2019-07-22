@@ -27,3 +27,29 @@ export const actDeleteProduct = id => ({
     type: Types.DELETE_PRODUCT,
     id
 });
+
+export const actAddProductRequest = product => {
+     return dispatch => {
+         return callAPI('POST', `products`, product).then(res => {
+            dispatch(actAddProduct(res.data))
+         })
+     };
+}
+
+export const actAddProduct = product => ({
+    type: Types.ADD_PRODUCTS,
+    product
+});
+
+export const actUpdateProductRequest = product => {
+    return dispatch => {
+        return callAPI('POST', `products`, product).then(res => {
+           dispatch(actUpdateProduct(res.data))
+        })
+    };
+}
+
+export const actUpdateProduct = product => ({
+   type: Types.UPDATE_PRODUCT,
+   product
+});

@@ -9,12 +9,6 @@ import { actFetchAllProductsRequest, actDeleteProductRequest } from '../../actio
 
 
 class ProductsListPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            products: []
-        };
-    }
 
     componentDidMount() {
        this.props.fetchAllProducts();

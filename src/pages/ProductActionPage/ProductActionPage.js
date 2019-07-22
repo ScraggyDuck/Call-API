@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 
 import callAPI from '../../utils/APICaller';
 
+import { connect } from 'react-redux';
+import { actAddProductRequest } from '../../actions/index';
+
 class ProductActionPage extends Component {
     constructor(props) {
         super(props);
@@ -15,9 +18,9 @@ class ProductActionPage extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         var { match } = this.props;
-        if(match) {
+        if (match) {
             var id = match.params.id;
             callAPI('GET', `products/${id}`, null).then(res => {
                 var product = res.data;
@@ -44,7 +47,13 @@ class ProductActionPage extends Component {
         e.preventDefault();
         var { id, productName, productPrice, productStatus } = this.state;
         var { history } = this.props;
-        if(id !== ''){
+        var product = {
+            id: id,
+            name: productName,
+            price: productPrice,
+            status: productStatus
+        };
+        if (id !== '') {
             callAPI('PUT', `products/${id}`, {
                 name: productName,
                 price: productPrice,
@@ -53,14 +62,9 @@ class ProductActionPage extends Component {
                 history.push('/products-list');
             });
         }
-        else{
-            callAPI('POST', 'products', {
-                name: productName,
-                price: productPrice,
-                status: productStatus
-            }).then(res => {
-                history.push('/products-list');
-            });
+        else {
+            this.props.onAddProduct(product);
+            history.push('/products-list');
         }
     }
 
@@ -113,4 +117,7 @@ class ProductActionPage extends Component {
     }
 }
 
-export default ProductActionPage;
+const mapDispatchToProps = dispatch => ({
+    onAddProduct: product => dispatch(actAddProductRequest(product))
+})
+export default connect(null, mapDispatchToProps)(ProductActionPage);
