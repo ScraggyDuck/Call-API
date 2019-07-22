@@ -15,6 +15,22 @@ class ProductActionPage extends Component {
         }
     }
 
+    componentDidMount(){
+        var { match } = this.props;
+        if(match) {
+            var id = match.params.id;
+            callAPI('GET', `products/${id}`, null).then(res => {
+                var product = res.data;
+                this.setState({
+                    id: product.id,
+                    productName: product.name,
+                    productPrice: product.price,
+                    productStatus: product.status
+                })
+            });
+        }
+    }
+
     onChange = e => {
         var target = e.target;
         var name = target.name;
@@ -26,15 +42,26 @@ class ProductActionPage extends Component {
 
     onSave = e => {
         e.preventDefault();
-        var { productName, productPrice, productStatus } = this.state;
+        var { id, productName, productPrice, productStatus } = this.state;
         var { history } = this.props;
-        callAPI('POST', 'products', {
-            name: productName,
-            price: productPrice,
-            status: productStatus
-        }).then(res => {
-            history.push('/products-list');
-        });
+        if(id !== ''){
+            callAPI('PUT', `products/${id}`, {
+                name: productName,
+                price: productPrice,
+                status: productStatus
+            }).then(res => {
+                history.push('/products-list');
+            });
+        }
+        else{
+            callAPI('POST', 'products', {
+                name: productName,
+                price: productPrice,
+                status: productStatus
+            }).then(res => {
+                history.push('/products-list');
+            });
+        }
     }
 
     render() {
@@ -73,6 +100,7 @@ class ProductActionPage extends Component {
                                 name="productStatus"
                                 value={productStatus}
                                 onChange={this.onChange}
+                                checked={productStatus}
                             />
                             <label className="form-check-label">Còn hàng</label>
                         </div>
